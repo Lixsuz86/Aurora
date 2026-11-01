@@ -1,0 +1,15 @@
+[package]
+name = "aurora-parser"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Pratt and recursive-descent parser for the Aurora programming language"
+
+[dependencies]
+aurora-ast = { workspace = true }
+aurora-lexer = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

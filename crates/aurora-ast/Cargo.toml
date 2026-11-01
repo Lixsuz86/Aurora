@@ -1,0 +1,13 @@
+[package]
+name = "aurora-ast"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Abstract Syntax Tree and source span definitions for the Aurora programming language"
+
+[dependencies]
+thiserror = { workspace = true, optional = true }
+
+[lints]
+workspace = true

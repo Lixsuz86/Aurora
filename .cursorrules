@@ -1,0 +1,9 @@
+# Aurora Programming Language - Cursor & Agent Rules
+
+- Language: Rust 2021 edition or newer.
+- Primary Project Objective: Developing the "Aurora" programming language.
+- Key Philosophy: Easy, expressive syntax + high performance + low-level hardware control & safe high-level semantics.
+- Architecture: Modular Cargo workspace (`aurora-lexer`, `aurora-parser`, `aurora-ast`, `aurora-sema`, `aurora-vm`, `aurora-cli`).
+- Error Handling: Use `Result` and explicit error types (`thiserror` / `miette`). Avoid `unwrap()` / `expect()` in core compiler logic.
+- Workflow Rule: Execute tasks phased according to `ROADMAP.md`. After each phase is complete, run tests and linter, commit & push to git, then wait for user command before continuing to the next phase.
+- Commit Style: Conventional Commits (`feat:`, `fix:`, `refactor:`, `perf:`, `test:`, `docs:`, `chore:`).

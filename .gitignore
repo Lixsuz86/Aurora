@@ -1,0 +1,26 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+*.bk
+
+# Cargo
+Cargo.lock
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Output and temp files
+*.tmp
+*.log
+*.aurora.out

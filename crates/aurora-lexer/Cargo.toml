@@ -1,0 +1,14 @@
+[package]
+name = "aurora-lexer"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Fast, zero-copy lexical analyzer for the Aurora programming language"
+
+[dependencies]
+aurora-ast = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

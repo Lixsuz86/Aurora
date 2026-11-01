@@ -1,0 +1,14 @@
+[package]
+name = "aurora-vm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "High-performance bytecode virtual machine and execution runtime for Aurora"
+
+[dependencies]
+aurora-ast = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

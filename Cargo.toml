@@ -1,0 +1,46 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/aurora-ast",
+    "crates/aurora-lexer",
+    "crates/aurora-parser",
+    "crates/aurora-sema",
+    "crates/aurora-vm",
+    "crates/aurora-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Aurora Language Contributors"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/aurora-lang/aurora"
+homepage = "https://aurora-lang.org"
+readme = "README.md"
+
+[workspace.dependencies]
+# Workspace crates
+aurora-ast = { path = "crates/aurora-ast", version = "0.1.0" }
+aurora-lexer = { path = "crates/aurora-lexer", version = "0.1.0" }
+aurora-parser = { path = "crates/aurora-parser", version = "0.1.0" }
+aurora-sema = { path = "crates/aurora-sema", version = "0.1.0" }
+aurora-vm = { path = "crates/aurora-vm", version = "0.1.0" }
+
+# External utility dependencies
+thiserror = "2.0"
+clap = { version = "4.5", features = ["derive", "cargo"] }
+
+[workspace.lints.rust]
+unsafe_code = "warn"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+must_use_candidate = "allow"
+module_name_repetitions = "allow"
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+similar_names = "allow"
+missing_errors_doc = "allow"
+too_many_lines = "allow"
