@@ -94,21 +94,32 @@ fn run_file(path: &Path) -> i32 {
 
     // Parsing
     let mut parser = aurora_parser::Parser::new(tokens);
-    match parser.parse_program() {
-        Ok(program) => {
-            println!(
-                "Successfully parsed {} items and {} statements.",
-                program.items.len(),
-                program.statements.len()
-            );
-            0
-        }
+    let program = match parser.parse_program() {
+        Ok(prog) => prog,
         Err(err) => {
             let diag = aurora_lexer::Diagnostic::error(err.to_string(), err.span());
             eprint!("{}", diag.render(&source_file));
-            1
+            return 1;
         }
+    };
+
+    println!(
+        "Successfully parsed {} items and {} statements.",
+        program.items.len(),
+        program.statements.len()
+    );
+
+    // Semantic Analysis & Type Checking
+    let mut analyzer = aurora_sema::SemanticAnalyzer::new();
+    if let Err(sema_errors) = analyzer.analyze_program(&program) {
+        for err in sema_errors {
+            eprint!("{}", err.to_diagnostic().render(&source_file));
+        }
+        eprintln!("Execution aborted due to semantic/type errors.");
+        return 1;
     }
+
+    0
 }
 
 fn build_file(path: &Path, output: Option<&Path>, optimize: bool) -> i32 {
@@ -155,21 +166,31 @@ fn check_file(path: &Path) -> i32 {
     }
 
     let mut parser = aurora_parser::Parser::new(tokens);
-    match parser.parse_program() {
-        Ok(program) => {
-            println!(
-                "Check passed: syntax is valid ({} items, {} statements).",
-                program.items.len(),
-                program.statements.len()
-            );
-            0
-        }
+    let program = match parser.parse_program() {
+        Ok(prog) => prog,
         Err(err) => {
             let diag = aurora_lexer::Diagnostic::error(err.to_string(), err.span());
             eprint!("{}", diag.render(&source_file));
-            1
+            return 1;
         }
+    };
+
+    // Semantic Analysis & Type Checking
+    let mut analyzer = aurora_sema::SemanticAnalyzer::new();
+    if let Err(sema_errors) = analyzer.analyze_program(&program) {
+        for err in sema_errors {
+            eprint!("{}", err.to_diagnostic().render(&source_file));
+        }
+        eprintln!("Check failed due to semantic/type errors.");
+        return 1;
     }
+
+    println!(
+        "Check passed: syntax and types are valid ({} items, {} statements).",
+        program.items.len(),
+        program.statements.len()
+    );
+    0
 }
 
 fn run_repl() -> i32 {

@@ -8,8 +8,11 @@ description = "Semantic analyzer, symbol table, and type system for Aurora"
 
 [dependencies]
 aurora-ast = { workspace = true }
+aurora-lexer = { workspace = true }
 thiserror = { workspace = true }
+
+[dev-dependencies]
+aurora-parser = { workspace = true }
 
 [lints]
 workspace = true
-

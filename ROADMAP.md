@@ -50,11 +50,11 @@ Aurora, modern yazılım geliştiricilerinin iki ayrı dünya arasında (hızlı
 - [x] Hata kurtarma (Error recovery): Parser'ın ilk hatada durmayıp sonraki hataları da tespit edebilmesi (`synchronize`).
 
 ### Faz 4: Semantik Analiz & Tip Sistemi (Sema)
-- [ ] Kapsam ve Sembol Tablosu (Scope & Symbol Table) hiyerarşisi.
-- [ ] Tip Çıkarımı (Local Type Inference - Hindley-Milner / Bidirectional type checking).
-- [ ] Statik Tip Denetimi: İlkel tipler (`i8..i128`, `u8..u128`, `f32`, `f64`, `bool`, `string`), bileşik tipler, jenerikler (Generics).
-- [ ] Null Güvenliği: `Option<T>` / `T?` ve unwrap kuralları.
-- [ ] Değişkenlik (Mutability) ve yaşam süresi/sahiplik kurallarının doğrulanması.
+- [x] Kapsam ve Sembol Tablosu (Scope & Symbol Table) hiyerarşisi.
+- [x] Tip Çıkarımı (Local Type Inference - Hindley-Milner / Bidirectional type checking).
+- [x] Statik Tip Denetimi: İlkel tipler (`i8..i128`, `u8..u128`, `f32`, `f64`, `bool`, `string`), bileşik tipler, jenerikler (Generics).
+- [x] Null Güvenliği: `Option<T>` / `T?` ve unwrap kuralları.
+- [x] Değişkenlik (Mutability) ve yaşam süresi/sahiplik kurallarının doğrulanması.
 
 ### Faz 5: Ara Kod (IR) ve Bytecode VM / JIT Motoru
 - [ ] Optimize edilebilir Aurora IR (Yığın veya Kayıt tabanlı Bytecode).
