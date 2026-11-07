@@ -1,0 +1,48 @@
+// Aurora Language - Phase 3 Syntax Showcase
+
+// High-level: Structs, Enums, and Optionals
+struct Point {
+    pub x: f64,
+    pub y: f64,
+}
+
+enum Status {
+    Pending,
+    Active(i32),
+    Failed(string),
+}
+
+// High-level: Pipeline and Lambdas
+fn calculate(values: [i32]) -> i32 {
+    let factor = 2;
+    return values 
+        |> filter(|v| v > 0)
+        |> map(|v| v * factor)
+        |> sum();
+}
+
+// Low-level: Unsafe functions, raw pointers, and type casts
+unsafe fn raw_buffer_clear(ptr: *mut u8, size: usize) {
+    let mut i: usize = 0;
+    while i < size {
+        *ptr.offset(i) = 0 as u8;
+        i += 1;
+    }
+}
+
+// Modern control flow: Pattern matching and if expressions
+fn evaluate_status(status: Status) -> string {
+    return match status {
+        Status::Pending => "Waiting in queue",
+        Status::Active(code) => "Process running with code",
+        Status::Failed(reason) => "Error encountered",
+        _ => "Unknown status",
+    };
+}
+
+// Main execution block
+let origin = Point { x: 0.0, y: 0.0 };
+let current_status = Status::Active(200);
+let score = 10 + 20 * 3 ** 2;
+
+return score;

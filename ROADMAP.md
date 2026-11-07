@@ -43,11 +43,11 @@ Aurora, modern yazılım geliştiricilerinin iki ayrı dünya arasında (hızlı
 - [x] Renkli ve açıklayıcı söz dizimi hata raporlama motoru (diagnostics with labels & hints, source snippets).
 
 ### Faz 3: AST & Pratt Parser
-- [ ] Zengin Soyut Söz Dizimi Ağacı (AST) tanımları.
-- [ ] Pratt Parsing algoritması ile öncelik tabanlı (precedence) ikili/tekli operatör çözümleme.
-- [ ] İfadeler (Expressions): Değişken atamaları, fonksiyon çağrıları, lambda ifadeleri, match blokları, if-else, döngüler.
-- [ ] Tanımlamalar (Declarations): `fn`, `let`, `mut`, `const`, `struct`, `enum`, `trait`, `impl`, `use`.
-- [ ] Hata kurtarma (Error recovery): Parser'ın ilk hatada durmayıp sonraki hataları da tespit edebilmesi.
+- [x] Zengin Soyut Söz Dizimi Ağacı (AST) tanımları.
+- [x] Pratt Parsing algoritması ile öncelik tabanlı (precedence) ikili/tekli operatör çözümleme.
+- [x] İfadeler (Expressions): Değişken atamaları, fonksiyon çağrıları, lambda ifadeleri, match blokları, if-else, döngüler (`while`, `for`, `loop`), pipeline (`|>`), dizi indeksleme, üye erişimi, aralıklar.
+- [x] Tanımlamalar (Declarations): `fn`, `let`, `mut`, `const`, `struct`, `enum`, `trait`, `impl`, `type`, `use`, `unsafe fn`.
+- [x] Hata kurtarma (Error recovery): Parser'ın ilk hatada durmayıp sonraki hataları da tespit edebilmesi (`synchronize`).
 
 ### Faz 4: Semantik Analiz & Tip Sistemi (Sema)
 - [ ] Kapsam ve Sembol Tablosu (Scope & Symbol Table) hiyerarşisi.

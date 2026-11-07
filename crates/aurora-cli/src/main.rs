@@ -97,13 +97,15 @@ fn run_file(path: &Path) -> i32 {
     match parser.parse_program() {
         Ok(program) => {
             println!(
-                "Successfully parsed {} statements.",
+                "Successfully parsed {} items and {} statements.",
+                program.items.len(),
                 program.statements.len()
             );
             0
         }
         Err(err) => {
-            eprintln!("Parse Error: {err}");
+            let diag = aurora_lexer::Diagnostic::error(err.to_string(), err.span());
+            eprint!("{}", diag.render(&source_file));
             1
         }
     }
@@ -154,12 +156,17 @@ fn check_file(path: &Path) -> i32 {
 
     let mut parser = aurora_parser::Parser::new(tokens);
     match parser.parse_program() {
-        Ok(_) => {
-            println!("Check passed: syntax is valid.");
+        Ok(program) => {
+            println!(
+                "Check passed: syntax is valid ({} items, {} statements).",
+                program.items.len(),
+                program.statements.len()
+            );
             0
         }
         Err(err) => {
-            eprintln!("Syntax Error: {err}");
+            let diag = aurora_lexer::Diagnostic::error(err.to_string(), err.span());
+            eprint!("{}", diag.render(&source_file));
             1
         }
     }
