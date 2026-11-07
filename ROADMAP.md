@@ -30,17 +30,17 @@ Aurora, modern yazılım geliştiricilerinin iki ayrı dünya arasında (hızlı
 [Faz 7: Standart Kütüphane] ──▶ [Faz 8: Low-Level Bellek & FFI] ──▶ [Faz 9: LLVM / Native Backend]
 ```
 
-### Faz 1: Çalışma Alanı, Mimari Tasarım ve Geliştirme Araçları (Mevcut Faz)
+### Faz 1: Çalışma Alanı, Mimari Tasarım ve Geliştirme Araçları
 - [x] Rust Workspace mimarisinin kurulması (`aurora-lexer`, `aurora-parser`, `aurora-ast`, `aurora-sema`, `aurora-vm`, `aurora-cli`).
 - [x] Linter, formatlayıcı ve test altyapısının konfigürasyonu (`rustfmt.toml`, Clippy kuralları).
 - [x] Detaylı Roadmap ve AI kurallarının oluşturulması (`ROADMAP.md`, `AI_RULES.md`, `.cursorrules`).
 - [x] Git sürüm kontrolünün başlatılması ve ilk commit/push yapısının hazırlanması.
 
 ### Faz 2: Lexer & Kaynak Yönetimi (Tokenization)
-- [ ] UTF-8 destekli, sıfır kopyalı (zero-copy) Lexer tasarımı.
-- [ ] Detaylı kaynak konumu takibi (`Span`, `SourceLocation`, `SourceMap`).
-- [ ] Anahtar kelimeler, tanımlayıcılar (identifiers), sayılar (hex, bin, float, integer), karakter dizileri (interpolated strings), operatörler.
-- [ ] Renkli ve açıklayıcı söz dizimi hata raporlama motoru (diagnostics with labels & hints).
+- [x] UTF-8 destekli, sıfır kopyalı (zero-copy) Lexer tasarımı.
+- [x] Detaylı kaynak konumu takibi (`Span`, `SourceLocation`, `SourceMap`).
+- [x] Anahtar kelimeler, tanımlayıcılar (identifiers), sayılar (hex, bin, octal, float, integer with type suffixes), karakter ve ham dizeler (raw strings), operatörler.
+- [x] Renkli ve açıklayıcı söz dizimi hata raporlama motoru (diagnostics with labels & hints, source snippets).
 
 ### Faz 3: AST & Pratt Parser
 - [ ] Zengin Soyut Söz Dizimi Ağacı (AST) tanımları.
@@ -125,3 +125,4 @@ fn main() {
     println("Toplam: {total}")
 }
 ```
+

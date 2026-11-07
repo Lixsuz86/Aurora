@@ -21,6 +21,7 @@ impl<'a> Cursor<'a> {
 
     /// Current byte offset into the source string.
     #[inline]
+    #[must_use]
     pub const fn offset(&self) -> usize {
         self.offset
     }
@@ -31,10 +32,19 @@ impl<'a> Cursor<'a> {
         self.chars.clone().next()
     }
 
-    /// Peeks at the character after the next character.
+    /// Peeks at the character after the next character (offset + 1).
     #[inline]
     pub fn peek_next(&self) -> Option<char> {
         let mut iter = self.chars.clone();
+        iter.next()?;
+        iter.next()
+    }
+
+    /// Peeks at the character at offset + 2.
+    #[inline]
+    pub fn peek_third(&self) -> Option<char> {
+        let mut iter = self.chars.clone();
+        iter.next()?;
         iter.next()?;
         iter.next()
     }
@@ -57,15 +67,61 @@ impl<'a> Cursor<'a> {
         }
     }
 
+    /// Consumes the next character if it equals the expected char.
+    #[inline]
+    pub fn consume_if_eq(&mut self, expected: char) -> bool {
+        if self.peek() == Some(expected) {
+            self.next_char();
+            true
+        } else {
+            false
+        }
+    }
+
+    /// Consumes characters as long as the predicate returns true.
+    pub fn eat_while(&mut self, mut predicate: impl FnMut(char) -> bool) {
+        while let Some(c) = self.peek() {
+            if predicate(c) {
+                self.next_char();
+            } else {
+                break;
+            }
+        }
+    }
+
     /// Slices a range of the source code by start and end byte offsets.
     #[inline]
+    #[must_use]
     pub fn slice(&self, start: usize, end: usize) -> &'a str {
-        &self.source[start..end]
+        let s = start.min(self.source.len());
+        let e = end.min(self.source.len()).max(s);
+        &self.source[s..e]
     }
 
     /// Checks if we reached end of file.
     #[inline]
+    #[must_use]
     pub fn is_eof(&self) -> bool {
         self.offset >= self.source.len()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_cursor_peeks_and_eats() {
+        let mut cursor = Cursor::new("0x123abc");
+        assert_eq!(cursor.peek(), Some('0'));
+        assert_eq!(cursor.peek_next(), Some('x'));
+        assert_eq!(cursor.peek_third(), Some('1'));
+
+        assert_eq!(cursor.next_char(), Some('0'));
+        assert_eq!(cursor.next_char(), Some('x'));
+
+        cursor.eat_while(|c| c.is_ascii_hexdigit());
+        assert_eq!(cursor.offset(), 8);
+        assert!(cursor.is_eof());
     }
 }

@@ -62,3 +62,4 @@ cargo run -p aurora-cli -- --help
 
 * Detaylı aşamalar ve fazlar için: [`ROADMAP.md`](ROADMAP.md)
 * Geliştirme ilkeleri ve yapay zeka standartları için: [`AI_RULES.md`](AI_RULES.md)
+

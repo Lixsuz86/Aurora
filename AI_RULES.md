@@ -64,3 +64,4 @@
 3. **Dokümantasyon Bütünlüğü**:
    - Kod içi genel (`pub`) fonksiyonlar ve veri yapıları Rustdoc (`///`) ile belgelenmelidir.
    - Dilin kullanıcılarına yönelik söz dizimi ve standart kütüphane dokümantasyonu güncel tutulmalıdır.
+

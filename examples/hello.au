@@ -1,3 +1,14 @@
-let message = "Hello from Aurora!"
-let x = 10 + 20 * 2
-return x
+// Aurora Phase 2 - Lexer Feature Showcase
+let greeting = "Merhaba Aurora!"
+let raw_path = r"C:\Aurora\Compiler"
+
+/* Multi-line nested block comments
+   /* Inside inner comment */
+   Fully supported!
+*/
+let hex_mask: u64 = 0xDEAD_BEEFu64
+let bin_flags: u8 = 0b1010_1100u8
+let pi: f64 = 3.14159f64
+let answer = 40 + 2
+
+return answer

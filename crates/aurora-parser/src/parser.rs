@@ -157,9 +157,17 @@ impl Parser {
     fn parse_prefix(&mut self) -> Result<Expr, ParseError> {
         let token = self.advance();
         match token.kind {
-            TokenKind::Int(i) => Ok(Expr::new(ExprKind::Literal(Literal::Int(i)), token.span)),
-            TokenKind::Float(f) => Ok(Expr::new(ExprKind::Literal(Literal::Float(f)), token.span)),
-            TokenKind::Str(s) => Ok(Expr::new(ExprKind::Literal(Literal::String(s)), token.span)),
+            TokenKind::Int { value, .. } => Ok(Expr::new(
+                ExprKind::Literal(Literal::Int(value)),
+                token.span,
+            )),
+            TokenKind::Float { value, .. } => Ok(Expr::new(
+                ExprKind::Literal(Literal::Float(value)),
+                token.span,
+            )),
+            TokenKind::Str(s) | TokenKind::RawStr(s) => {
+                Ok(Expr::new(ExprKind::Literal(Literal::String(s)), token.span))
+            }
             TokenKind::Bool(b) => Ok(Expr::new(ExprKind::Literal(Literal::Bool(b)), token.span)),
             TokenKind::Nil => Ok(Expr::new(ExprKind::Literal(Literal::Nil), token.span)),
             TokenKind::Ident(name) => Ok(Expr::new(

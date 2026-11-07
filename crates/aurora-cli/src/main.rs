@@ -64,11 +64,33 @@ fn run_file(path: &Path) -> i32 {
         }
     };
 
+    let file_id = aurora_ast::FileId(0);
+    let source_file = aurora_ast::SourceFile::new(
+        file_id,
+        path.file_name().unwrap_or_default().to_string_lossy(),
+        &source,
+        Some(path.to_path_buf()),
+    );
+
     println!("Running Aurora file: {}", path.display());
 
     // Tokenization
     let mut lexer = aurora_lexer::Lexer::new(&source);
     let tokens = lexer.tokenize();
+
+    // Check lexical diagnostics
+    let mut has_lex_errors = false;
+    for diag in lexer.diagnostics() {
+        eprint!("{}", diag.render(&source_file));
+        if diag.level == aurora_lexer::DiagnosticLevel::Error {
+            has_lex_errors = true;
+        }
+    }
+
+    if has_lex_errors {
+        eprintln!("Execution aborted due to lexical errors.");
+        return 1;
+    }
 
     // Parsing
     let mut parser = aurora_parser::Parser::new(tokens);
@@ -106,10 +128,31 @@ fn check_file(path: &Path) -> i32 {
         }
     };
 
+    let file_id = aurora_ast::FileId(0);
+    let source_file = aurora_ast::SourceFile::new(
+        file_id,
+        path.file_name().unwrap_or_default().to_string_lossy(),
+        &source,
+        Some(path.to_path_buf()),
+    );
+
     let mut lexer = aurora_lexer::Lexer::new(&source);
     let tokens = lexer.tokenize();
-    let mut parser = aurora_parser::Parser::new(tokens);
 
+    let mut has_errors = false;
+    for diag in lexer.diagnostics() {
+        eprint!("{}", diag.render(&source_file));
+        if diag.level == aurora_lexer::DiagnosticLevel::Error {
+            has_errors = true;
+        }
+    }
+
+    if has_errors {
+        eprintln!("Check failed due to syntax errors.");
+        return 1;
+    }
+
+    let mut parser = aurora_parser::Parser::new(tokens);
     match parser.parse_program() {
         Ok(_) => {
             println!("Check passed: syntax is valid.");
