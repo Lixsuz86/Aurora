@@ -119,7 +119,30 @@ fn run_file(path: &Path) -> i32 {
         return 1;
     }
 
-    0
+    // Bytecode Compilation
+    let mut compiler = aurora_vm::BytecodeCompiler::new();
+    let compiled_function = match compiler.compile(&program) {
+        Ok(func) => func,
+        Err(err) => {
+            eprintln!("Bytecode compilation error: {err}");
+            return 1;
+        }
+    };
+
+    // Virtual Machine Execution
+    let mut vm = aurora_vm::Vm::new();
+    match vm.run_main(compiled_function) {
+        Ok(val) => {
+            if val != aurora_vm::Value::Nil {
+                println!("Result: {val}");
+            }
+            0
+        }
+        Err(err) => {
+            eprintln!("Runtime error: {err}");
+            1
+        }
+    }
 }
 
 fn build_file(path: &Path, output: Option<&Path>, optimize: bool) -> i32 {

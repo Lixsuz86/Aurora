@@ -555,6 +555,42 @@ impl SemanticAnalyzer {
                 Type::Unit
             }
             ExprKind::Call { callee, args } => {
+                // Built-in print/println/assert are special forms
+                if let ExprKind::Variable(ident) = &callee.kind {
+                    if ident.name == "println" || ident.name == "print" {
+                        for arg in args {
+                            self.check_expr(arg);
+                        }
+                        return Type::Unit;
+                    }
+                    if ident.name == "assert" {
+                        if args.is_empty() || args.len() > 2 {
+                            self.errors.push(SemanticError::ArityMismatch {
+                                expected: 1,
+                                found: args.len(),
+                                span: expr.span,
+                            });
+                        }
+                        for arg in args {
+                            self.check_expr(arg);
+                        }
+                        return Type::Unit;
+                    }
+                    if ident.name == "assert_eq" {
+                        if args.len() != 2 {
+                            self.errors.push(SemanticError::ArityMismatch {
+                                expected: 2,
+                                found: args.len(),
+                                span: expr.span,
+                            });
+                        }
+                        for arg in args {
+                            self.check_expr(arg);
+                        }
+                        return Type::Unit;
+                    }
+                }
+
                 let callee_ty = self.check_expr(callee);
                 match callee_ty {
                     Type::Function {

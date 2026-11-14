@@ -1,0 +1,48 @@
+// Aurora Phase 5 - Fibonacci & Performance Benchmark Example
+
+fn fib_recursive(n: i64) -> i64 {
+    if n <= 1 {
+        return n;
+    }
+    return fib_recursive(n - 1) + fib_recursive(n - 2);
+}
+
+fn fib_iterative(n: i64) -> i64 {
+    if n <= 1 {
+        return n;
+    }
+    let mut prev: i64 = 0;
+    let mut curr: i64 = 1;
+    let mut i: i64 = 2;
+    while i <= n {
+        let next: i64 = prev + curr;
+        prev = curr;
+        curr = next;
+        i += 1;
+    }
+    return curr;
+}
+
+fn main() {
+    println("=== Aurora Bytecode Virtual Machine Demo ===");
+
+    let n: i64 = 15;
+
+    let t0: f64 = clock();
+    let res_rec: i64 = fib_recursive(n);
+    let t1: f64 = clock();
+    let rec_time: f64 = t1 - t0;
+
+    println("fib_recursive(", n, ") =", res_rec, "in", rec_time, "seconds");
+
+    let t2: f64 = clock();
+    let res_iter: i64 = fib_iterative(n);
+    let t3: f64 = clock();
+    let iter_time: f64 = t3 - t2;
+
+    println("fib_iterative(", n, ") =", res_iter, "in", iter_time, "seconds");
+
+    assert(res_rec == res_iter, "Calculations must match!");
+    println("Verification: PASSED!");
+}
+

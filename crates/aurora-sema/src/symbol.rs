@@ -130,6 +130,47 @@ impl Default for SymbolTable {
             false,
             Span::default(),
         ));
+        root.insert(Symbol::new_fn(
+            "alloc",
+            vec![Type::USize],
+            Type::Pointer {
+                inner: Box::new(Type::U8),
+                is_mutable: true,
+            },
+            true,
+            Span::default(),
+        ));
+        root.insert(Symbol::new_fn(
+            "free",
+            vec![Type::Pointer {
+                inner: Box::new(Type::U8),
+                is_mutable: true,
+            }],
+            Type::Unit,
+            true,
+            Span::default(),
+        ));
+        root.insert(Symbol::new_fn(
+            "clock",
+            vec![],
+            Type::F64,
+            false,
+            Span::default(),
+        ));
+        root.insert(Symbol::new_fn(
+            "assert",
+            vec![Type::Bool],
+            Type::Unit,
+            false,
+            Span::default(),
+        ));
+        root.insert(Symbol::new_fn(
+            "assert_eq",
+            vec![Type::Unknown, Type::Unknown],
+            Type::Unit,
+            false,
+            Span::default(),
+        ));
         Self { scopes: vec![root] }
     }
 }

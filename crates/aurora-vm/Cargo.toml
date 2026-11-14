@@ -10,6 +10,15 @@ description = "High-performance bytecode virtual machine and execution runtime f
 aurora-ast = { workspace = true }
 thiserror = { workspace = true }
 
+[dev-dependencies]
+aurora-lexer = { workspace = true }
+aurora-parser = { workspace = true }
+aurora-sema = { workspace = true }
+
+[[bench]]
+name = "vm_bench"
+harness = false
+
 [lints]
 workspace = true
 

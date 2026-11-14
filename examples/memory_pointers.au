@@ -1,0 +1,24 @@
+// Aurora Phase 5 - Low-Level Linear Memory & Pointer Dereferencing
+
+unsafe fn memory_demo() -> i64 {
+    println("--- Allocating 24 bytes in VM Linear Memory ---");
+    let ptr: *mut i64 = alloc(24);
+
+    println("Writing 64-bit integer 0xCAFE_BABE to *ptr...");
+    *ptr = 3405691582; // 0xCAFE_BABE in decimal
+
+    let read_back: i64 = *ptr;
+    println("Read back from raw pointer:", read_back);
+
+    free(ptr);
+    println("Memory freed successfully.");
+    return read_back;
+}
+
+fn main() {
+    println("=== Low-Level Pointer Operations ===");
+    let result: i64 = unsafe { memory_demo() };
+    assert(result == 3405691582, "Pointer read must match written value");
+    println("Pointer verification: PASSED!");
+}
+

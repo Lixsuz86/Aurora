@@ -143,19 +143,42 @@ impl Type {
             return true;
         }
 
-        // Mutable pointer can coerce to const pointer (*mut T -> *const T)
+        // Array coercion: [T; N] -> [T] (slice) or [T; N] -> [T; N]
         if let (
-            Self::Pointer {
-                inner: src_inner,
-                is_mutable: true,
+            Self::Array {
+                element: src_elem,
+                size: src_size,
             },
-            Self::Pointer {
-                inner: tgt_inner,
-                is_mutable: false,
+            Self::Array {
+                element: tgt_elem,
+                size: tgt_size,
             },
         ) = (self, target)
         {
-            if src_inner == tgt_inner {
+            if src_elem.can_coerce_to(tgt_elem) && (tgt_size.is_none() || *tgt_size == *src_size) {
+                return true;
+            }
+        }
+
+        // Pointer coercion:
+        // - *mut T -> *const T
+        // - *mut u8 / *const u8 -> *mut T / *const T (void* style allocation)
+        // - *mut T / *const T -> *mut u8 / *const u8
+        if let (
+            Self::Pointer {
+                inner: src_inner,
+                is_mutable: src_mut,
+            },
+            Self::Pointer {
+                inner: tgt_inner,
+                is_mutable: tgt_mut,
+            },
+        ) = (self, target)
+        {
+            if *tgt_mut && !*src_mut {
+                return false;
+            }
+            if src_inner == tgt_inner || **src_inner == Self::U8 || **tgt_inner == Self::U8 {
                 return true;
             }
         }

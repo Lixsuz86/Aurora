@@ -57,11 +57,11 @@ Aurora, modern yazılım geliştiricilerinin iki ayrı dünya arasında (hızlı
 - [x] Değişkenlik (Mutability) ve yaşam süresi/sahiplik kurallarının doğrulanması.
 
 ### Faz 5: Ara Kod (IR) ve Bytecode VM / JIT Motoru
-- [ ] Optimize edilebilir Aurora IR (Yığın veya Kayıt tabanlı Bytecode).
-- [ ] Hızlı Yürütme Sanal Makinesi (Aurora VM):
+- [x] Optimize edilebilir Aurora IR (Yığın veya Kayıt tabanlı Bytecode).
+- [x] Hızlı Yürütme Sanal Makinesi (Aurora VM):
   - Komut kümesi (OpCodes): Aritmetik, mantıksal, bellek yükleme/saklama, atlama (jumps), çağrı yığını (call stack).
   - Değer temsili (Tagged Unions veya NaN-boxing ile minimum bellek ayak izi).
-- [ ] Performans profilleme ve mikro benchmark altyapısı (Criterion).
+- [x] Performans profilleme ve mikro benchmark altyapısı (Criterion).
 
 ### Faz 6: Aurora CLI & Geliştirici Deneyimi (DX)
 - [ ] `aurora run <file.au>`: Hızlı çalıştırma modu.
